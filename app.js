@@ -36,7 +36,6 @@ app.controller("calculatorController", function($scope) {
 	$scope.numberOfPapers = function() {
 		return ($scope.relativePercent() * 8333.33);
 	};
-
 	
 	$scope.getNumber = function(num) {
 		return new Array(num);
