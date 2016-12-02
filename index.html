@@ -1,0 +1,84 @@
+<html ng-app="carbon-footprint">
+
+<head>
+	<script src="assets/angular.min.js"></script>
+	<link rel="stylesheet" href="assets/bootstrap.min.css">
+	<script src="assets/jquery-3.1.1.min.js"></script>
+	<script src="assets/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
+	<title>Tree Usage Calculator</title>
+</head>
+
+<body ng-controller="calculatorController">
+	<div class="container">
+		<nav class="navbar ">
+			<div class="container">
+				<a class="navbar-brand text-success" href="#"><i class="fa fa-leaf fa-3x" aria-hidden="true"></i>
+			<strong>Tree Usage Calculator</strong> </a>
+			</div>
+		</nav>
+		<ul class="nav nav-pills" role="tablist">
+			<li class="nav-item">
+				<a class="nav-link active" href="#calculator" role="tab" data-toggle="tab">Calculator</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="#methodology" href="#methodology" role="tab" data-toggle="tab">Methodology</a>
+			</li>
+		</ul>
+
+		<!-- Tab panes -->
+		<div class="tab-content">
+			<div role="tabpanel" class="tab-pane fade in active" id="calculator">
+				<div class="row">
+					<div class="col-md-5">
+						<br>
+						<div class="input-group input-group-lg">
+							<span class="input-group-addon">Paper Size</span>
+							<select ng-model="paper_size" class="form-control input-lg" required>
+					   			<option ng-repeat="x in sizes" value="{{ x }}">{{ x }}</option>
+							</select>
+						</div>
+						<br>
+						<div class="input-group input-group-lg">
+							<span class="input-group-addon">Pages</span>
+							<input class="form-control input-lg" type="number" ng-model="page_count">
+						</div>
+						<br>
+						<div class="input-group input-group-lg">
+							<span class="input-group-addon">Quantity</span>
+							<input class="form-control input-lg" type="number" ng-model="quantity">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<br>
+					<h3>A single tree can produce <strong>{{ numberOfPapers().toFixed(2) }}</strong> {{ paper_size }}-sized papers</h3>
+					<h3>You would need to use <strong>{{ numberOfTrees().toFixed(2) }}</strong> trees to produce {{ page_count * quantity }} pages.</h3>
+					<i ng-repeat="t in getNumber(Math.round(numberOfTrees())) track by $index" class="fa fa-tree fa-5x" aria-hidden="true"></i>
+				</div>
+			</div>
+			<div role="tabpanel" class="tab-pane fade" id="methodology">
+				<div class="container">
+					<div class="card">
+						<div class="card-block">
+							<h2>Methodology</h2>
+							<h4>Facts and formulas used</h4>
+							<ul class="list-group">
+								<li class="list-group-item">1 tree produces 8,333.33 US letter 'copier' paper (based on [1]).</li>
+								<li class="list-group-item">To get how many paper of type X a tree can produce, we multiply 8,333.33  by (area of X / area of Letter).</li>
+								<li class="list-group-item">To get how many trees amount of paper X consumes, we compute X divided by the number of papers produced by one tree (previous item).</li>
+							</ul>
+						</div>
+						<div class="card-block">
+							<h2>References</h2>
+							<span class="tag tag-primary">[1]</span> <code>http://conservatree.org/learn/EnviroIssues/TreeStats.shtml</code>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="app.js"></script>
+</body>
+
+</html>
